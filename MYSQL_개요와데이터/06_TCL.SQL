@@ -52,3 +52,39 @@ Durability(지속성)  : 트랜잭션이 완료된 후의 결과는 영구적으
 	 		은행에서 5만 원 송금 후 서비스 점검으로 1시간 후 계좌 확인을 했을 때
 			송금내역이 존재해야함
 */
+
+-- KHTUSER 안에 있는 USER 테이블 조회
+SELECT * FROM KHTUSER.USER;
+
+-- USER PHONE 앞에 작성된 KOR) 제거
+SET SQL_SAFE_UPDATE = 0; -- 안전모드 종료
+
+START TRANSACTION;  -- SAVEPOINT 를 사용하기 위해서는 SRART TRANSACTION 시작 수동 제어
+SAVEPOINT SP1;		-- 임시로 되돌릴 위치 이름 SP1로 설정
+USE KHTUSER;		-- KHTUSER DB로 접속
+UPDATE USER SET PHONE = SEBSTRING_INDEX(PHONE,')',1);  -- 수정할 UPDATE작성
+SELECT * FROM USER;									   -- 제대로 수정했는지 확인
+
+ROLLBACK TO SP1;		-- 원하는 결과 수정 X SP1 임시저장한 위치로 되돌리기
+UPDATE USER SET PHONE = SEBSTRING_INDEX(PHONE,')',1); -- 수정
+SELECT * FROM USER;  	-- 올바르게 수정됐는지 확인
+
+COMMIT;					-- 수정 결과 저장
+
+
+/*
+-- STUDENT 테이블에 할생정브롤 저장하려 한다.
+SESLCT TIGGER NAME, STASUS
+
+-- STUDEUNT를 명시하지 않고, 자동으로 학생을 저장하기
+FROM USER TRIGGER
+
+
+WHERE TRIGGER_NAME = ;TRG_USER' ; 
+
+SELECT SEQUENCE_NAME
+FROM USER_SEQUENCE
+
+CERATE OR REPLACE TRIGGER TRG_USER;
+*/
+
