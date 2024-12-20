@@ -97,3 +97,13 @@ REVOKE INSERT, UPDATE ON KHUSER.user TO 'JUNIOR'@'%';
 
 --JUNIOR 가 이상한 행동을 보이는게 맞음! 혹시모르니 모든 권한 회수
 REVOKE ALL PRIVILEGES ON KHUSER.* TO 'JUNIOR'@'%';
+
+/*
+권한 부여
+GRANT  ______  TO   ______ ;
+
+권한 회수
+REVOKE ______  FROM ______ ;
+
+
+*/
